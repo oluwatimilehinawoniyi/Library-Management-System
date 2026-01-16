@@ -277,6 +277,7 @@ server:
 
 ```bash
 # Stop all running instances and delete lock file
+rm -rf data/ # make sure you are in the parent directory
 rm backend/data/librarydb.mv.db
 ```
 
