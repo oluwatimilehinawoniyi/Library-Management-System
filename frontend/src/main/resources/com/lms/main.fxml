@@ -57,7 +57,7 @@
                 <Region HBox.hgrow="ALWAYS"/>
 
                 <!-- Search -->
-                <TextField fx:id="searchField" promptText="🔍 Search by title or author..."
+                <TextField fx:id="searchField" promptText="🔍 Search by title or author or ISBN..."
                            prefWidth="300.0" onAction="#handleSearch"/>
                 <Button text="Search" onAction="#handleSearch"
                         styleClass="action-button" prefWidth="80.0"/>
