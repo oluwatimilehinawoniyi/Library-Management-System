@@ -119,7 +119,7 @@ java -jar target/library-frontend-1.0.0.jar
 3. Confirm the deletion
 
 ### Searching Books
-1. Enter search term in the search field (searches title and author)
+1. Enter search term in the search field (searches title, author and ISBN number)
 2. Click "Search" or press Enter
 3. Click "Clear" to reset search
 
@@ -176,23 +176,6 @@ To change the default page size, modify `MainController.java`:
 ```java
 private int pageSize = 10; // change value as needed
 ```
-
-## Testing the Application
-
-### Manual Testing Checklist
-- [ ] Add a new book with valid data
-- [ ] Add a book with invalid data (future date, empty fields)
-- [ ] Update an existing book
-- [ ] Delete a book
-- [ ] Search for books by title
-- [ ] Search for books by author
-- [ ] Navigate through pages
-- [ ] Change page size
-- [ ] Sort by different columns
-- [ ] Import CSV with valid data
-- [ ] Import CSV with invalid data
-- [ ] View statistics
-- [ ] Test with backend offline
 
 ## API Endpoints Used
 

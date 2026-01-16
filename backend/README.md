@@ -113,7 +113,7 @@ com.librarymanagementsystem/
     - Published date validation (prevents future dates)
 
 2. **Advanced Search**
-    - Search books by title or author
+    - Search books by title or author or ISBN number
     - Case-insensitive partial matching
     - Paginated search results
 
