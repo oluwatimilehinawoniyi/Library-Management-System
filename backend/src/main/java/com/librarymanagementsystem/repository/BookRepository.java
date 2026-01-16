@@ -31,7 +31,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("""
             SELECT YEAR(b.publishedDate) as year, COUNT(b) as count
             FROM Book b GROUP BY YEAR(b.publishedDate)
-            ORDER BY year DESC
+            ORDER BY YEAR(b.publishedDate) DESC
             """)
     List<Object[]> countBooksByYear();
 
