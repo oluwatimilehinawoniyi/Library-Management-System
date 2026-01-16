@@ -148,7 +148,7 @@ public class BookController {
     @GetMapping("/search")
     @Operation(
             summary = "Search books",
-            description = "Search books by title or author (case-insensitive partial match). " +
+            description = "Search books by title or author or ISBN number (case-insensitive partial match). " +
                     "Results are paginated for better performance.")
     @ApiResponses(value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
@@ -157,7 +157,7 @@ public class BookController {
                     content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     public ResponseEntity<ApiResponse<Page<BookDTO>>> searchBooks(
-            @Parameter(description = "Search keyword for title or author", required = true, example = "Martin")
+            @Parameter(description = "Search keyword for title or author or ISBN number", required = true, example = "Martin")
             @RequestParam String keyword,
             @Parameter(description = "Page number (0-indexed)", example = "0")
             @RequestParam(defaultValue = "0") int page,

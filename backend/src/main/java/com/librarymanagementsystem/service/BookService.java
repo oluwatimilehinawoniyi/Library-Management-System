@@ -124,7 +124,7 @@ public class BookService {
     }
 
     /**
-     * Search books by title or author with pagination
+     * Search books by title or author or isbn number with pagination
      *
      * @param keyword Search keyword
      * @param page    Page number
@@ -144,7 +144,7 @@ public class BookService {
         if (size <= 0 || size > 100) size = 10;
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Book> bookPage = bookRepository.searchByTitleOrAuthor(keyword.trim(), pageable);
+        Page<Book> bookPage = bookRepository.searchByTitleOrAuthorOrISBN(keyword.trim(), pageable);
 
         return bookPage.map(bookMapper::toDTO);
     }
@@ -274,7 +274,7 @@ public class BookService {
      * @throws FileProcessingException if file cannot be read
      */
     public Map<String, Object> bulkCreateBooks(MultipartFile file) {
-        log.info("Starting bulk import from file: {}", file.getOriginalFilename());
+        log.info("Starting bulk import from file: {} of size {} KB", file.getOriginalFilename(), file.getSize() / 1024);
 
         List<ImportError> errors = new ArrayList<>();
         int successCount = 0;
@@ -299,7 +299,7 @@ public class BookService {
 
             // Process each row
             for (int i = startIndex; i < rows.size(); i++) {
-                rowNumber = i + 1; // Human-readable row number
+                rowNumber = i + 1;
                 String[] row = rows.get(i);
 
                 try {
@@ -425,7 +425,7 @@ public class BookService {
      * @return Job ID for tracking progress
      */
     public String bulkCreateBooksAsync(MultipartFile file) {
-        log.info("Starting async bulk import from file: {}", file.getOriginalFilename());
+        log.info("Starting async bulk import from file: {} of size {} KB", file.getOriginalFilename(), file.getSize() / 1024);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
              CSVReader csvReader = new CSVReader(reader)) {

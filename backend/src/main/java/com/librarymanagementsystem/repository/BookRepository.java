@@ -14,10 +14,14 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    @Query("SELECT b FROM Book b WHERE " +
-            "LOWER(b.title) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-            "LOWER(b.author) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    Page<Book> searchByTitleOrAuthor(@Param("keyword") String keyword, Pageable pageable);
+    @Query("""
+                SELECT b FROM Book b
+                WHERE
+                  LOWER(b.title)  LIKE LOWER(CONCAT('%', :keyword, '%'))
+                  OR LOWER(b.author) LIKE LOWER(CONCAT('%', :keyword, '%'))
+                  OR b.isbn LIKE CONCAT('%', :keyword, '%')
+            """)
+    Page<Book> searchByTitleOrAuthorOrISBN(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("SELECT DISTINCT b.author FROM Book b ORDER BY b.author")
     List<String> findAllUniqueAuthors();

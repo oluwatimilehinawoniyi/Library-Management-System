@@ -23,6 +23,7 @@ public class BookService {
 
     private static final String BASE_URL = "http://localhost:8080/api/v1/books";
     private static final Duration TIMEOUT = Duration.ofSeconds(30);
+    private static final long ASYNC_THRESHOLD_KB = 50; // configurable, so for testing bulk upload, it could be reduced or so
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -167,8 +168,8 @@ public class BookService {
 
         long fileSizeKB = csvFile.length() / 1024;
 
-        if (fileSizeKB > 50) {
-            // if it's a large file - use async
+        // if it's a large file - use async
+        if (fileSizeKB > ASYNC_THRESHOLD_KB) {
             return bulkImportBooksAsync(csvFile);
         }
 

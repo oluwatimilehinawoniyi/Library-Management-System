@@ -177,7 +177,7 @@ class BookServiceTest {
         List<Book> books = Collections.singletonList(validBook);
         Page<Book> bookPage = new PageImpl<>(books);
 
-        when(bookRepository.searchByTitleOrAuthor(eq("Constitution"), any(PageRequest.class)))
+        when(bookRepository.searchByTitleOrAuthorOrISBN(eq("Constitution"), any(PageRequest.class)))
                 .thenReturn(bookPage);
         when(bookMapper.toDTO(any(Book.class))).thenReturn(validBookDTO);
 
@@ -185,7 +185,7 @@ class BookServiceTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getContent()).hasSize(1);
-        verify(bookRepository).searchByTitleOrAuthor(eq("Constitution"), any(PageRequest.class));
+        verify(bookRepository).searchByTitleOrAuthorOrISBN(eq("Constitution"), any(PageRequest.class));
     }
 
     @Test
@@ -201,7 +201,7 @@ class BookServiceTest {
 
         assertThat(result).isNotNull();
         verify(bookRepository).findAll(any(PageRequest.class));
-        verify(bookRepository, never()).searchByTitleOrAuthor(anyString(), any(PageRequest.class));
+        verify(bookRepository, never()).searchByTitleOrAuthorOrISBN(anyString(), any(PageRequest.class));
     }
 
     @Test
